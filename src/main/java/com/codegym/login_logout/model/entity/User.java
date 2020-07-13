@@ -1,5 +1,8 @@
 package com.codegym.login_logout.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,19 +33,17 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "username", nullable = false)
-    @NotBlank
     @Size(min = 6, max = 30)
     private String username;
 
     @Column(name = "email", nullable = false)
-    @NotBlank
     @Email
     @Size(max = 50)
     private String email;
 
     @Column(name = "password", nullable = false)
-    @NotBlank
     @Size(max = 120)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -55,12 +56,6 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     public User() {
-    }
-
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
     }
 
     @Override
