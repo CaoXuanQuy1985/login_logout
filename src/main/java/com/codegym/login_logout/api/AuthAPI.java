@@ -8,6 +8,7 @@ import com.codegym.login_logout.security.jwt.JwtUtils;
 import com.codegym.login_logout.services.User.UserService;
 import com.codegym.login_logout.services.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -105,5 +106,19 @@ public class AuthAPI {
         userService.addOne(user);
 
         return user;
+    }
+
+    @ExceptionHandler(ExistUserNameException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public String handleDuplicateUsernameException() {
+        return "{\"message\":\"" + ERROR_USERNAME_IS_ALREADY_TAKEN + "\"}";
+    }
+
+    @ExceptionHandler(ExistEmailException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public String handleDuplicateEmailException() {
+        return "{\"message\":\"" + ERROR_EMAIL_IS_ALREADY_IN_USE + "\"}";
     }
 }
