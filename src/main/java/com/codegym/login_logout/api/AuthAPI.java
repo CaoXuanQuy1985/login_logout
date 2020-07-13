@@ -4,7 +4,6 @@ import com.codegym.login_logout.model.EnumRole;
 import com.codegym.login_logout.model.entity.Role;
 import com.codegym.login_logout.model.entity.User;
 import com.codegym.login_logout.model.response.JwtResponse;
-import com.codegym.login_logout.repository.RoleRepository;
 import com.codegym.login_logout.security.jwt.JwtUtils;
 import com.codegym.login_logout.services.User.UserService;
 import com.codegym.login_logout.services.role.RoleService;

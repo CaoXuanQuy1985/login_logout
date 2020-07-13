@@ -3,6 +3,7 @@ package com.codegym.login_logout.services.User;
 import com.codegym.login_logout.model.entity.User;
 import com.codegym.login_logout.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Qualifier("userDetailService")
 public class UserServiceImp implements UserService, UserDetailsService {
     private final UserRepository userRepository;
 

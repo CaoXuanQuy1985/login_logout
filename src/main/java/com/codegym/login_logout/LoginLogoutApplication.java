@@ -25,12 +25,6 @@ public class LoginLogoutApplication {
     }
 
     @Bean
-    @Qualifier("userDetailService")
-    public UserDetailsService userDetailsServiceBean(UserRepository userRepository) {
-        return new UserServiceImp(userRepository);
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
