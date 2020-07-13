@@ -10,7 +10,6 @@ import com.codegym.login_logout.model.response.MessageResponse;
 import com.codegym.login_logout.repository.RoleRepository;
 import com.codegym.login_logout.repository.UserRepository;
 import com.codegym.login_logout.security.jwt.JwtUtils;
-import com.codegym.login_logout.security.userinformation.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -76,17 +75,18 @@ public class AuthAPI {
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+        User userLogon = (User) authentication.getPrincipal();
+        Set<Role> roles = userLogon.getRoles();
+        List<String> rolesListString = new LinkedList<>();
+        for (Role role : roles) {
+            rolesListString.add(role.getName().name());
+        }
 
         return new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles);
+                userLogon.getId(),
+                userLogon.getUsername(),
+                userLogon.getEmail()
+                , rolesListString);
     }
 
     @PostMapping("/signup")
