@@ -43,8 +43,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public User addOne(User model) {
-        return null;
+    public User addOne(User user) {
+        return userRepository.save(user);
     }
 
     @Override
@@ -65,6 +65,16 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void deleteOne(User model) {
 
+    }
+
+    @Override
+    public boolean isUsernameExist(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        return userRepository.existsByEmail(email);
     }
 
     @Override

@@ -5,8 +5,9 @@ import com.codegym.login_logout.model.entity.Role;
 import com.codegym.login_logout.model.entity.User;
 import com.codegym.login_logout.model.response.JwtResponse;
 import com.codegym.login_logout.repository.RoleRepository;
-import com.codegym.login_logout.repository.UserRepository;
 import com.codegym.login_logout.security.jwt.JwtUtils;
+import com.codegym.login_logout.services.User.UserService;
+import com.codegym.login_logout.services.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,9 +31,9 @@ public class AuthAPI {
     public static final String USER_REGISTERED_SUCCESSFULLY = "User registered successfully !!!";
     private AuthenticationManager authenticationManager;
 
-    private UserRepository userRepository;
+    private UserService userService;
 
-    private RoleRepository roleRepository;
+    private RoleService roleRepository;
 
     private PasswordEncoder encoder;
 
@@ -44,12 +45,12 @@ public class AuthAPI {
     }
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Autowired
-    public void setRoleRepository(RoleRepository roleRepository) {
+    public void setRoleRepository(RoleService roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -84,10 +85,10 @@ public class AuthAPI {
     @PostMapping("/register")
     @ResponseBody
     public User registerUser(@Valid @RequestBody User userRegister) throws ExistUserNameException, ExistEmailException {
-        if (userRepository.existsByUsername(userRegister.getUsername())) {
+        if (userService.isUsernameExist(userRegister.getUsername())) {
             throw new ExistUserNameException();
         }
-        if (userRepository.existsByEmail(userRegister.getEmail())) {
+        if (userService.isEmailExist(userRegister.getEmail())) {
             throw new ExistEmailException();
         }
 
@@ -99,10 +100,10 @@ public class AuthAPI {
         if (userRegister.getRoles().size() != 0) {
             roles = userRegister.getRoles();
         } else {
-            roles.add(roleRepository.findByName(EnumRole.ROLE_USER).orElse(null));
+            roles.add(roleRepository.getOneByRoleName(EnumRole.ROLE_USER));
         }
         user.setRoles(roles);
-        userRepository.save(user);
+        userService.addOne(user);
 
         return user;
     }
