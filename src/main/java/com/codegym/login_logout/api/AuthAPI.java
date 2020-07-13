@@ -25,9 +25,9 @@ import java.util.Set;
 @RequestMapping("/api/auth")
 public class AuthAPI {
 
-    public static final String ERROR_USERNAME_IS_ALREADY_TAKEN = "Error: Username is already taken !!!";
-    public static final String ERROR_EMAIL_IS_ALREADY_IN_USE = "Error: Email is already in use !!!";
-    public static final String ERROR_ROLE_IS_NOT_FOUND = "Error: Role is not found.";
+    public static final String ERROR_USERNAME_IS_ALREADY_TAKEN = "Username is already taken !!!";
+    public static final String ERROR_EMAIL_IS_ALREADY_IN_USE = "Email is already in use !!!";
+    public static final String ERROR_ROLE_IS_NOT_FOUND = "Role is not found.";
     public static final String USER_REGISTERED_SUCCESSFULLY = "User registered successfully !!!";
     private AuthenticationManager authenticationManager;
 
