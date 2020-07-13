@@ -64,16 +64,18 @@ public class AuthAPI {
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public JwtResponse authenticateUser(@RequestBody User userLogin) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
-
-        String jwt = jwtUtils.generateJwtToken(authentication);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                userLogin.getUsername(),
+                userLogin.getPassword()
+        );
+        Authentication authentication = authenticationManager.authenticate(authToken);
+        String jwtToken = jwtUtils.generateJwtToken(authentication);
         User userLogon = (User) authentication.getPrincipal();
 
         JwtResponse jwtResponse = new JwtResponse();
-        jwtResponse.setToken(jwt);
+        jwtResponse.setToken(jwtToken);
         jwtResponse.setUser(userLogon);
+
         return jwtResponse;
     }
 
