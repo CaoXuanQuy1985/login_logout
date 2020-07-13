@@ -6,7 +6,6 @@ import com.codegym.login_logout.model.entity.User;
 import com.codegym.login_logout.model.request.LoginRequest;
 import com.codegym.login_logout.model.request.SignupRequest;
 import com.codegym.login_logout.model.response.JwtResponse;
-import com.codegym.login_logout.model.response.MessageResponse;
 import com.codegym.login_logout.repository.RoleRepository;
 import com.codegym.login_logout.repository.UserRepository;
 import com.codegym.login_logout.security.jwt.JwtUtils;
@@ -84,12 +83,12 @@ public class AuthAPI {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken !!!"));
+                    .body("Error: Username is already taken !!!");
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest()
-                    .body(new MessageResponse("Error: Email is already in use !!!"));
+                    .body("Error: Email is already in use !!!");
         }
 
         User user = new User(signUpRequest.getUsername(),
@@ -128,6 +127,6 @@ public class AuthAPI {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully !!!"));
+        return ResponseEntity.ok("User registered successfully !!!");
     }
 }
