@@ -1,0 +1,2 @@
+INSERT INTO testDB.users (id, email, password, username) VALUES (1, 'quy@gmail.com', '$2a$10$FUJNXgLy1XtLSBfCyOnJouhhbybYbhIfhRt5kVuJ/gIibvjEx7oV.', 'xuanquy');
+INSERT INTO testDB.users (id, email, password, username) VALUES (2, 'duc@example.com', '$2a$10$HVb5kGFXYLdwyKhJ16VKiOi3R1SyWUjZCJsA4vp6QsLAS8mkwUEkm', 'vanduc1992');
