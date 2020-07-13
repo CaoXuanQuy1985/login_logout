@@ -1,0 +1,2 @@
+###Test Post method with empty Body
+POST http://localhost:8080/api/auth/signup
