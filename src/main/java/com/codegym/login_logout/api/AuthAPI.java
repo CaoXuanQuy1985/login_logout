@@ -50,8 +50,8 @@ public class AuthAPI {
     }
 
     @Autowired
-    public void setRoleRepository(RoleService roleRepository) {
-        this.roleRepository = roleRepository;
+    public void setRoleService(RoleService roleService) {
+        this.roleRepository = roleService;
     }
 
     @Autowired
