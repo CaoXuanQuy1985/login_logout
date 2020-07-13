@@ -1,8 +1,8 @@
 ###Test Post method with empty Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 
 ###Test Post method with Invalid(Size < 6) Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ###Test post method with Invalid(no email) Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 
 
 ###Test post method with Invalid Email Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ###Test Post method with Valid Email Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
