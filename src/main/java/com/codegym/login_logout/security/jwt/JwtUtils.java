@@ -1,4 +1,4 @@
-package com.codegym.login_logout.service.security.jwt;
+package com.codegym.login_logout.security.jwt;
 
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.codegym.login_logout.service.security.userinformation.UserDetailsImpl;
+import com.codegym.login_logout.security.userinformation.UserDetailsImpl;
 
 import java.util.Date;
 

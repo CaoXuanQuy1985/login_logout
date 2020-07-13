@@ -9,16 +9,14 @@ import com.codegym.login_logout.model.response.JwtResponse;
 import com.codegym.login_logout.model.response.MessageResponse;
 import com.codegym.login_logout.repository.RoleRepository;
 import com.codegym.login_logout.repository.UserRepository;
-import com.codegym.login_logout.service.security.jwt.JwtUtils;
-import com.codegym.login_logout.service.security.userinformation.UserDetailsImpl;
+import com.codegym.login_logout.security.jwt.JwtUtils;
+import com.codegym.login_logout.security.userinformation.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

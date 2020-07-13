@@ -1,4 +1,4 @@
-package com.codegym.login_logout.service.security.userinformation;
+package com.codegym.login_logout.security.userinformation;
 
 import com.codegym.login_logout.model.User;
 import com.codegym.login_logout.repository.UserRepository;

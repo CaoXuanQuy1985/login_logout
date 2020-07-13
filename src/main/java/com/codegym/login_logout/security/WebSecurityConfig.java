@@ -1,8 +1,8 @@
-package com.codegym.login_logout.configSecurity;
+package com.codegym.login_logout.security;
 
-import com.codegym.login_logout.service.security.jwt.AuthEntryPointJwt;
-import com.codegym.login_logout.service.security.jwt.AuthTokenFilter;
-import com.codegym.login_logout.service.security.userinformation.UserDetailsServiceImpl;
+import com.codegym.login_logout.security.jwt.AuthEntryPointJwt;
+import com.codegym.login_logout.security.jwt.AuthTokenFilter;
+import com.codegym.login_logout.security.userinformation.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
