@@ -1,4 +1,4 @@
-package com.codegym.login_logout.controller;
+package com.codegym.login_logout.api;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", maxAge = 360)
 @RestController
 @RequestMapping("/api/check")
-public class CheckController {
+public class CheckAPI {
 
     @GetMapping("/all")
     public String allAccess() {

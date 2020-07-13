@@ -1,4 +1,4 @@
-package com.codegym.login_logout.controller;
+package com.codegym.login_logout.api;
 
 import com.codegym.login_logout.model.EnumRole;
 import com.codegym.login_logout.model.Role;
@@ -12,11 +12,13 @@ import com.codegym.login_logout.repository.UserRepository;
 import com.codegym.login_logout.service.security.jwt.JwtUtils;
 import com.codegym.login_logout.service.security.userinformation.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,45 +28,67 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins ="*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthAPI {
+
+    private AuthenticationManager authenticationManager;
+
+    private UserRepository userRepository;
+
+    private RoleRepository roleRepository;
+
+    private PasswordEncoder encoder;
+
+    private JwtUtils jwtUtils;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
     @Autowired
-    UserRepository userRepository;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
-    RoleRepository roleRepository;
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Autowired
-    PasswordEncoder encoder;
+    public void setEncoder(PasswordEncoder encoder) {
+        this.encoder = encoder;
+    }
 
     @Autowired
-    JwtUtils jwtUtils;
+    public void setJwtUtils(JwtUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public JwtResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                                                                    userDetails.getId(),
-                                                                    userDetails.getUsername(),
-                                                                    userDetails.getEmail(),
-                                                                    roles));
+        return new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles);
     }
 
     @PostMapping("/signup")
@@ -81,22 +105,22 @@ public class AuthController {
         }
 
         User user = new User(signUpRequest.getUsername(),
-                                       signUpRequest.getEmail(),
-                                      encoder.encode(signUpRequest.getPassword()));
+                signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(EnumRole.ROLE_USER)
-                                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(EnumRole.ROLE_ADMIN)
-                                                                   .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
                         break;
                     case "mod":

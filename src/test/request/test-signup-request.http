@@ -37,15 +37,26 @@ Content-Type: application/json
 {
   "email": "dummy@example.com",
   "username": "dummy_account",
-  "password": "dummy_password",
-  "role": "USER"
+  "password": "dummy_password"
 }
 
 ###Test Post method with Valid Body
-POST http://localhost:8080/api/auth/signin
+POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "vanduc2514",
-  "password": "anhnam420"
+  "username": "dummy_account",
+  "password": "dummy_password"
 }
+
+###Test Post method with Valid Body
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "vanduc",
+  "password": "vanduc1234"
+}
+
+###Test Authorize
+GET http://localhost:8080/api/check/user
