@@ -72,21 +72,13 @@ public class AuthAPI {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-
         User userLogon = (User) authentication.getPrincipal();
-        Set<Role> roles = userLogon.getRoles();
-        List<String> rolesListString = new LinkedList<>();
-        for (Role role : roles) {
-            rolesListString.add(role.getName().name());
-        }
 
-        return new JwtResponse(jwt,
-                userLogon.getId(),
-                userLogon.getUsername(),
-                userLogon.getEmail()
-                , rolesListString);
+        JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setToken(jwt);
+        jwtResponse.setUser(userLogon);
+        return jwtResponse;
     }
 
     @PostMapping("/signup")
