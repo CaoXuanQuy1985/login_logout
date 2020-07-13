@@ -1,6 +1,6 @@
 package com.codegym.login_logout.model.response;
 
-import com.codegym.login_logout.model.User;
+import com.codegym.login_logout.model.entity.User;
 import lombok.Data;
 
 @Data

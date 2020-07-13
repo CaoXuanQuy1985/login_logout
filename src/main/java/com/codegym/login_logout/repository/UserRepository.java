@@ -1,6 +1,6 @@
 package com.codegym.login_logout.repository;
 
-import com.codegym.login_logout.model.User;
+import com.codegym.login_logout.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

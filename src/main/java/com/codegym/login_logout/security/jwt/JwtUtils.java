@@ -1,6 +1,6 @@
 package com.codegym.login_logout.security.jwt;
 
-import com.codegym.login_logout.model.User;
+import com.codegym.login_logout.model.entity.User;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

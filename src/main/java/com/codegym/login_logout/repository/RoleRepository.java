@@ -1,7 +1,7 @@
 package com.codegym.login_logout.repository;
 
 import com.codegym.login_logout.model.EnumRole;
-import com.codegym.login_logout.model.Role;
+import com.codegym.login_logout.model.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,5 @@
 package com.codegym.login_logout.security.userinformation;
 
-import com.codegym.login_logout.model.User;
 import com.codegym.login_logout.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

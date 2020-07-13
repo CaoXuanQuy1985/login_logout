@@ -1,4 +1,6 @@
-package com.codegym.login_logout.model;
+package com.codegym.login_logout.model.entity;
+
+import com.codegym.login_logout.model.EnumRole;
 
 import javax.persistence.*;
 

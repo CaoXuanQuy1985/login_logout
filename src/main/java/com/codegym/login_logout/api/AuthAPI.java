@@ -1,8 +1,8 @@
 package com.codegym.login_logout.api;
 
 import com.codegym.login_logout.model.EnumRole;
-import com.codegym.login_logout.model.Role;
-import com.codegym.login_logout.model.User;
+import com.codegym.login_logout.model.entity.Role;
+import com.codegym.login_logout.model.entity.User;
 import com.codegym.login_logout.model.request.LoginRequest;
 import com.codegym.login_logout.model.request.SignupRequest;
 import com.codegym.login_logout.model.response.JwtResponse;
@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
