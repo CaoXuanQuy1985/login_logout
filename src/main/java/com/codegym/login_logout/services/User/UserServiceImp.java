@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImp implements UserService {
-    private UserRepository userRepository;
+public class UserServiceImp implements UserService, UserDetailsService {
+    private final UserRepository userRepository;
 
     @Autowired
     public UserServiceImp(UserRepository userRepository) {
@@ -62,5 +65,11 @@ public class UserServiceImp implements UserService {
     @Override
     public void deleteOne(User model) {
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 }
