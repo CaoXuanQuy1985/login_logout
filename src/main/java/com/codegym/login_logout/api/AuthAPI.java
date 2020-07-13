@@ -3,7 +3,6 @@ package com.codegym.login_logout.api;
 import com.codegym.login_logout.model.EnumRole;
 import com.codegym.login_logout.model.entity.Role;
 import com.codegym.login_logout.model.entity.User;
-import com.codegym.login_logout.model.request.LoginRequest;
 import com.codegym.login_logout.model.request.SignupRequest;
 import com.codegym.login_logout.model.response.JwtResponse;
 import com.codegym.login_logout.repository.RoleRepository;
@@ -16,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -64,10 +64,10 @@ public class AuthAPI {
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JwtResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public JwtResponse authenticateUser(@RequestBody User userLogin) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(userLogin.getUsername(), userLogin.getPassword()));
 
         String jwt = jwtUtils.generateJwtToken(authentication);
         User userLogon = (User) authentication.getPrincipal();
