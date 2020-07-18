@@ -1,8 +1,8 @@
 ###Test Post method with empty Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 
 ###Test Post method with Invalid(Size < 6) Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ###Test post method with Invalid(no email) Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 
 
 ###Test post method with Invalid Email Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
@@ -31,21 +31,43 @@ Content-Type: application/json
 }
 
 ###Test Post method with Valid Email Body
-POST http://localhost:8080/api/auth/signup
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
   "email": "dummy@example.com",
   "username": "dummy_account",
-  "password": "dummy_password",
-  "role": "USER"
+  "password": "dummy_password"
 }
 
-###Test Post method with Valid Body
-POST http://localhost:8080/api/auth/signin
+
+###Test Post method with Valid Email Body
+POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "vanduc2514",
-  "password": "anhnam420"
+  "email": "dummy_test@example.com",
+  "username": "dummy_account_test",
+  "password": "dummy_password_test"
 }
+
+###Test Post method with Valid Body
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "dummy_account",
+  "password": "dummy_password"
+}
+
+###Test Post method with Valid Body
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "vanduc",
+  "password": "vanduc1234"
+}
+
+###Test Authorize
+GET http://localhost:8080/api/check/user

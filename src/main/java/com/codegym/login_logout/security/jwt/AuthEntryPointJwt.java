@@ -1,4 +1,4 @@
-package com.codegym.login_logout.service.security.jwt;
+package com.codegym.login_logout.security.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
